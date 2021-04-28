@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var dbURI = 'mongodb://127.0.0.1:27017/Loc8r';
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGO_URI;
 }
 mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true });

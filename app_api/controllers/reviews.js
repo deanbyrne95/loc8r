@@ -211,15 +211,15 @@ const deleteReview = (req, res) => {
                 } else {
                     location.reviews.id(reviewId).remove();
                     location.save(err => {
-                        if(err) {
+                        if (err) {
                             return res
-                        .status(404)
-                        .json(err);
+                                .status(404)
+                                .json(err);
                         } else {
                             updateAverageRating(location._id);
                             res
-                            .status(204)
-                            .json(null);
+                                .status(204)
+                                .json(null);
                         }
                     })
                 }
@@ -230,7 +230,7 @@ const deleteReview = (req, res) => {
                         "message": "No review to delete"
                     });
             }
-        })
+        });
 };
 
 module.exports = {
