@@ -1,32 +1,61 @@
-/* GET 'locations' page */
-const homeList = (req, res) => {
+const request = require('request');
+
+const apiOptions = {
+    server: 'http://localhost:3000'
+};
+
+if (process.env.NODE_ENV === 'production') {
+    apiOptions.server = 'https://murmuring-brook-43687.herokuapp.com'
+};
+
+const formatDistance = (distance) => {
+    let currentDistance = 0;
+    let unit = 'm';
+    if(distance > 1000) {
+        currentDistance = parseFloat(distance / 1000).toFixed(1);
+        unit = 'km';
+    } else {
+        currentDistance = Math.floor(distance);
+    }
+    return currentDistance + unit;
+}
+
+const renderHomepage = (req, res, responseBody) => {
     res.render('locations-list', {
-        title: 'Loc8r - find a place to work with wifi',
-        sidebar: 'Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you\'re looking for.',
+        title: 'Loc8r - find a place to work with Wi-Fi',
+        sidebar: 'Looking for Wi-Fi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you\'re looking for.',
         pageHeader: {
             title: 'Loc8r',
-            strapline: 'Find places to work with wifi near you!'
+            strapline: 'Find places to work with Wi-Fi near you!'
         },
-        locations: [{
-            name: 'Starcups',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 3,
-            facilities: ['Hot Drinks', 'Food', 'Premium Wi-Fi'],
-            distance: '100m'
-        }, {
-            name: 'Cafe Hero',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 4,
-            facilities: ['Hot Drinks', 'Food', 'Premium Wi-Fi'],
-            distance: '200m'
-        }, {
-            name: 'Burger Queen',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 2,
-            facilities: ['Food', 'Premium Wi-Fi'],
-            distance: '250m'
-        }]
+        locations: responseBody
     });
+}
+
+/* GET 'locations' page */
+const homeList = (req, res) => {
+    const path = '/api/locations'
+    const requestOptions = {
+        url: `${apiOptions.server}${path}`,
+        method: 'GET',
+        json: {},
+        qs: {
+            lng: -0.7992599,
+            lat: 51.378091,
+            maxDistance: 20
+        }
+    };
+    request(
+        requestOptions,
+        (err, response, body) => {
+            let data = [];
+            data = body.map( (item) => {
+                item.distance = formatDistance(item.distance);
+                return item;
+            });
+            renderHomepage(req, res, data);
+        }
+    )
 };
 
 const locationInfo = (req, res) => {
@@ -34,7 +63,7 @@ const locationInfo = (req, res) => {
         title: 'Location Information',
         pageHeader: { title: 'Starcups' },
         sidebar: {
-            context: 'is on Loc8r because it has accessible Wi-Fo and space to sit down with your laptop and get some work done.',
+            context: 'is on Loc8r because it has accessible Wi-Fi and space to sit down with your laptop and get some work done.',
             callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.'
         },
         location: {
