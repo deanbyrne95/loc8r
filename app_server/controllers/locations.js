@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 const formatDistance = (distance) => {
     let currentDistance = 0;
     let unit = 'm';
-    if(distance > 1000) {
+    if (distance > 1000) {
         currentDistance = parseFloat(distance / 1000).toFixed(1);
         unit = 'km';
     } else {
@@ -21,6 +21,15 @@ const formatDistance = (distance) => {
 }
 
 const renderHomepage = (req, res, responseBody) => {
+    let message = null;
+    if(!(responseBody instanceof Array)) {
+        message = "API lookup error";
+        responseBody = [];
+    } else {
+        if(!responseBody.length) {
+            message = "No places found nearby";
+        }
+    }
     res.render('locations-list', {
         title: 'Loc8r - find a place to work with Wi-Fi',
         sidebar: 'Looking for Wi-Fi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you\'re looking for.',
@@ -28,7 +37,8 @@ const renderHomepage = (req, res, responseBody) => {
             title: 'Loc8r',
             strapline: 'Find places to work with Wi-Fi near you!'
         },
-        locations: responseBody
+        locations: responseBody,
+        message
     });
 }
 
@@ -47,12 +57,14 @@ const homeList = (req, res) => {
     };
     request(
         requestOptions,
-        (err, response, body) => {
+        (err, { statusCode }, body) => {
             let data = [];
-            data = body.map( (item) => {
-                item.distance = formatDistance(item.distance);
-                return item;
-            });
+            if (statusCode === 200 && body.length) {
+                data = body.map((item) => {
+                    item.distance = formatDistance(item.distance);
+                    return item;
+                });
+            }
             renderHomepage(req, res, data);
         }
     )
