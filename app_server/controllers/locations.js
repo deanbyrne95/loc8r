@@ -67,50 +67,39 @@ const homeList = (req, res) => {
             }
             renderHomepage(req, res, data);
         }
-    )
+    );
 };
 
-const locationInfo = (req, res) => {
+const renderDetailPage = function(req, res, location) {
     res.render('location-info', {
-        title: 'Location Information',
-        pageHeader: { title: 'Starcups' },
+        title: location.name,
+        pageHeader: { title: location.name },
         sidebar: {
             context: 'is on Loc8r because it has accessible Wi-Fi and space to sit down with your laptop and get some work done.',
             callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.'
         },
-        location: {
-            name: 'Starcups',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 3,
-            facilities: ['Hot Drinks', 'Food', 'Premium Wi-Fi'],
-            coords: { lat: 51.455041, lng: -0.9690884 },
-            openingTimes: [{
-                days: 'Monday - Friday',
-                opening: '7:00am',
-                closing: '7:00pm',
-                closed: false
-            }, {
-                days: 'Saturday',
-                opening: '8:00am',
-                closing: '5:00pm',
-                closed: false
-            }, {
-                days: 'Sunday',
-                closed: true
-            }],
-            reviews: [{
-                author: 'Simon Holmes',
-                rating: 5,
-                timestamp: '16 July 2013',
-                reviewText: 'What a great place. I can\'t say enough good things about it.'
-            }, {
-                author: 'Charlie Chaplin',
-                rating: 3,
-                timestamp: '16 June 2013',
-                reviewText: 'It was okay. Coffee wasn\'t great, but the Wi-Fi was fast.'
-            }]
-        }
+        location
     });
+}
+
+const locationInfo = (req, res) => {
+    const path = `/api/locations/${req.params.locationId}`;
+    const requestOptions = {
+        url: `${apiOptions.server}${path}`,
+        method: 'GET',
+        json: {}
+    };
+    request(
+        requestOptions,
+        (err, response, body) => {
+            const data = body;
+            data.coords = {
+                lng: body.coords[0],
+                lat: body.coords[1]
+            }
+            renderDetailPage(req, res, data);
+        }
+    );
 };
 
 const addReview = (req, res) => {
