@@ -100,7 +100,7 @@ const renderDetailPage = function (req, res, location) {
     });
 }
 
-const locationInfo = (req, res) => {
+const getLocationInfo = (req, res, callback) => {
     const path = `/api/locations/${req.params.locationId}`;
     const requestOptions = {
         url: `${apiOptions.server}${path}`,
@@ -116,24 +116,60 @@ const locationInfo = (req, res) => {
                     lng: body.coords[0],
                     lat: body.coords[1]
                 }
-                renderDetailPage(req, res, data);
+                callback(req, res, data);
             } else {
                 showError(req, res, statusCode);
             }
 
         }
     );
+}
+
+const locationInfo = (req, res) => {
+    getLocationInfo(req, res, 
+        (req, res, responseData) => renderDetailPage(req, res, responseData));
 };
 
-const addReview = (req, res) => {
+const renderReviewForm = (req, res, {name}) => {
     res.render('location-review-form', {
-        title: 'Review Starcups on Loc8r',
-        pageHeader: { title: 'Review Starcups' }
+        title: `Review ${name} on Loc8r`,
+        pageHeader: { title: `Review ${name}` }
     });
+}
+
+const addReview = (req, res) => {
+    getLocationInfo(req, res, 
+        (req, res, responseData) => renderReviewForm(req, res, responseData));
+};
+
+const doAddReview = (req, res) => {
+    const locationId = req.params.locationId;
+    const path = `/api/locations/${locationId}/reviews`;
+    const postData = {
+        author: req.body.name,
+        rating: parseInt(req.body.rating, 10),
+        reviewText: req.body.review
+    };
+    const requestOptions = {
+        url: `${apiOptions.server}${path}`,
+        method: 'POST',
+        json: postData
+    };
+    request(
+        requestOptions,
+        (err, {statusCode}, body) => {
+            if(statusCode === 201) {
+                res.redirect(`/location/${locationId}`);
+            } else {
+                showError(req, res, statusCode);
+            }
+        }
+    )
 };
 
 module.exports = {
     homeList,
     locationInfo,
-    addReview
+    addReview,
+    doAddReview
 };
