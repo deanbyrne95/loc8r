@@ -11,19 +11,14 @@ export class Loc8rDataService {
 
   constructor(private http: HttpClient) { }
 
-  public async getLocations(): Promise<Location[]> {
-    const lng: number = -0.7992599;
-    const lat: number = 51.378091;
-    const maxDistance: number = 20;
+  public getLocations(lat: number, lng: number): Promise<Location[]> {
+    const maxDistance: number = 2000000;
     const url: string = `${this.baseApiUrl}/locations?lng=${lng}&lat=${lat}&maxDistance=${maxDistance}`;
-    try {
-      const response = await this.http
+      return this.http
         .get(url)
-        .toPromise();
-      return response as Location[];
-    } catch (error) {
-      return this.handleError(error);
-    }
+        .toPromise()
+        .then(response => response as Location[])
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
