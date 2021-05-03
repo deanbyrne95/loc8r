@@ -59,7 +59,6 @@ const renderHomepage = (req, res, responseBody) => {
     });
 }
 
-/* GET 'locations' page */
 const homeList = (req, res) => {
     const path = '/api/locations'
     const requestOptions = {
@@ -81,8 +80,10 @@ const homeList = (req, res) => {
                     item.distance = formatDistance(item.distance);
                     return item;
                 });
+                renderHomepage(req, res, data);
+            } else {
+                showError(req, res, statusCode);
             }
-            renderHomepage(req, res, data);
         }
     );
 };
