@@ -14,6 +14,7 @@ import { HtmlLineBreaksPipe } from './pipes/html-line-breaks.pipe';
 import { RatingStarsComponent } from './components/rating-stars/rating-stars.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { DetailsPageComponent } from './components/details-page/details-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -32,16 +33,7 @@ import { DetailsPageComponent } from './components/details-page/details-page.com
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomepageComponent
-      },
-      {
-        path: 'about',
-        component: AboutComponent
-      }
-    ])
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [FrameworkComponent]
