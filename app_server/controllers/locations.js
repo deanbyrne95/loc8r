@@ -126,11 +126,11 @@ const getLocationInfo = (req, res, callback) => {
 }
 
 const locationInfo = (req, res) => {
-    getLocationInfo(req, res, 
+    getLocationInfo(req, res,
         (req, res, responseData) => renderDetailPage(req, res, responseData));
 };
 
-const renderReviewForm = (req, res, {name}) => {
+const renderReviewForm = (req, res, { name }) => {
     res.render('location-review-form', {
         title: `Review ${name} on Loc8r`,
         pageHeader: { title: `Review ${name}` },
@@ -139,7 +139,7 @@ const renderReviewForm = (req, res, {name}) => {
 }
 
 const addReview = (req, res) => {
-    getLocationInfo(req, res, 
+    getLocationInfo(req, res,
         (req, res, responseData) => renderReviewForm(req, res, responseData));
 };
 
@@ -156,18 +156,22 @@ const doAddReview = (req, res) => {
         method: 'POST',
         json: postData
     };
-    request(
-        requestOptions,
-        (err, {statusCode}, {name}) => {
-            if(statusCode === 201) {
-                res.redirect(`/location/${locationId}`);
-            } else if(statusCode === 400 && name && name === 'ValidationError') {
-                res.redirect(`/location/${locationId}/review/new?err=val`);
-            } else {
-                showError(req, res, statusCode);
+    if (!postData.author || !postData.rating || !postData.reviewText) {
+        res.redirect(`/location/${locationId}/review/new?err=val`);
+    } else {
+        request(
+            requestOptions,
+            (err, { statusCode }, { name }) => {
+                if (statusCode === 201) {
+                    res.redirect(`/location/${locationId}`);
+                } else if (statusCode === 400 && name && name === 'ValidationError') {
+                    res.redirect(`/location/${locationId}/review/new?err=val`);
+                } else {
+                    showError(req, res, statusCode);
+                }
             }
-        }
-    )
+        )
+    }
 };
 
 module.exports = {
