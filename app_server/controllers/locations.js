@@ -8,6 +8,23 @@ if (process.env.NODE_ENV === 'production') {
     apiOptions.server = 'https://murmuring-brook-43687.herokuapp.com'
 };
 
+const showError = (req, res, status) => {
+    let title = '';
+    let content = '';
+    if (status === 404) {
+        title = '404 - Page Not Found';
+        content = 'Oh dear! Looks like we can\'t this page. Sorry!'
+    } else {
+        title = `${status} - Something's Gone Wrong`
+        content = 'Something, somewhere, sometime, has gone a little bit wrong!';
+    }
+    res.status(status);
+    res.render('generic-text', {
+        title,
+        content
+    });
+}
+
 const formatDistance = (distance) => {
     let currentDistance = 0;
     let unit = 'm';
@@ -22,11 +39,11 @@ const formatDistance = (distance) => {
 
 const renderHomepage = (req, res, responseBody) => {
     let message = null;
-    if(!(responseBody instanceof Array)) {
+    if (!(responseBody instanceof Array)) {
         message = "API lookup error";
         responseBody = [];
     } else {
-        if(!responseBody.length) {
+        if (!responseBody.length) {
             message = "No places found nearby";
         }
     }
@@ -70,7 +87,7 @@ const homeList = (req, res) => {
     );
 };
 
-const renderDetailPage = function(req, res, location) {
+const renderDetailPage = function (req, res, location) {
     res.render('location-info', {
         title: location.name,
         pageHeader: { title: location.name },
@@ -91,13 +108,18 @@ const locationInfo = (req, res) => {
     };
     request(
         requestOptions,
-        (err, response, body) => {
+        (err, { statusCode }, body) => {
             const data = body;
-            data.coords = {
-                lng: body.coords[0],
-                lat: body.coords[1]
+            if (statusCode === 200) {
+                data.coords = {
+                    lng: body.coords[0],
+                    lat: body.coords[1]
+                }
+                renderDetailPage(req, res, data);
+            } else {
+                showError(req, res, statusCode);
             }
-            renderDetailPage(req, res, data);
+
         }
     );
 };
