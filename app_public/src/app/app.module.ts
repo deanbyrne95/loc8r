@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FrameworkComponent } from './components/framework/framework.component';
 import { AboutComponent } from './components/about/about.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     DistancePipe,
     FrameworkComponent,
     AboutComponent,
-    HomepageComponent
+    HomepageComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,
