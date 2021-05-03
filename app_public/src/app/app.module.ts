@@ -13,6 +13,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HtmlLineBreaksPipe } from './pipes/html-line-breaks.pipe';
 import { RatingStarsComponent } from './components/rating-stars/rating-stars.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
+import { DetailsPageComponent } from './components/details-page/details-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LocationDetailsComponent } from './components/location-details/location
     SidebarComponent,
     HtmlLineBreaksPipe,
     RatingStarsComponent,
-    LocationDetailsComponent
+    LocationDetailsComponent,
+    DetailsPageComponent
   ],
   imports: [
     BrowserModule,
