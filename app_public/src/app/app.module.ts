@@ -4,17 +4,26 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HomeListComponent } from './components/home-list/home-list.component';
 import { DistancePipe } from './pipes/distance.pipe';
+import { RouterModule } from '@angular/router';
+import { FrameworkComponent } from './components/framework/framework.component';
 
 @NgModule({
   declarations: [
     HomeListComponent,
-    DistancePipe
+    DistancePipe,
+    FrameworkComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: HomeListComponent
+      }
+    ])
   ],
   providers: [],
-  bootstrap: [HomeListComponent]
+  bootstrap: [FrameworkComponent]
 })
 export class AppModule { }
