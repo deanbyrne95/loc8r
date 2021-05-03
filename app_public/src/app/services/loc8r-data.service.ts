@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Location } from './home-list/home-list.component';
+import { Location } from '../components/home-list/home-list.component';
 
 @Injectable({
   providedIn: 'root'
