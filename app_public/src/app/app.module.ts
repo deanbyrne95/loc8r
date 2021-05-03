@@ -7,13 +7,15 @@ import { DistancePipe } from './pipes/distance.pipe';
 import { RouterModule } from '@angular/router';
 import { FrameworkComponent } from './components/framework/framework.component';
 import { AboutComponent } from './components/about/about.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
     HomeListComponent,
     DistancePipe,
     FrameworkComponent,
-    AboutComponent
+    AboutComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { AboutComponent } from './components/about/about.component';
     RouterModule.forRoot([
       {
         path: '',
-        component: HomeListComponent
+        component: HomepageComponent
       },
       {
         path: 'about',
