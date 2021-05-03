@@ -1,3 +1,4 @@
+<div class="error">{{message}}</div>
 <div class="card" *ngFor="let location of locations">
   <div class="card-block">
     <h4>
@@ -9,8 +10,7 @@
         <i class="fa{{location.rating < 4 ? 'r' : 's'}} fa-star"></i>
         <i class="fa{{location.rating < 5 ? 'r' : 's'}} fa-star"></i>
       </small>
-      <span class="badge badge-pill badge-default float-
-      right">{{location.distance | distance}}</span>
+      <span class="badge badge-pill badge-default float-right">{{location.distance | distance}}</span>
     </h4>
     <p class="address">{{location.address}}</p>
     <div class="facilities">
