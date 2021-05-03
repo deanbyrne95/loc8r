@@ -9,6 +9,7 @@ import { FrameworkComponent } from './components/framework/framework.component';
 import { AboutComponent } from './components/about/about.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     FrameworkComponent,
     AboutComponent,
     HomepageComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
