@@ -19,7 +19,7 @@ const calculateAverageRating = (location) => {
 };
 
 const updateAverageRating = (locationId) => {
-    Loc.findById(locationId)
+    Rev.findById(locationId)
         .select('rating reviews')
         .exec((err, location) => {
             if (!err) {
@@ -126,7 +126,7 @@ const updateReview = (req, res) => {
                 "message": "LocationId and reviewId are required"
             });
     }
-    Loc
+    Rev
         .findById(req.params.locationId)
         .select('reviews')
         .exec((err, location) => {
@@ -185,7 +185,7 @@ const deleteReview = (req, res) => {
                 "message": "Not found - locationId and reviewId are both required"
             });
     }
-    Loc
+    Rev
         .findById(locationId)
         .select('reviews')
         .exec((err, location) => {
