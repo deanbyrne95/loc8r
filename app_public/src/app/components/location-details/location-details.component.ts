@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Location } from "src/app/classes/location";
 import { Review } from "src/app/classes/review";
 import { Loc8rDataService } from "src/app/services/loc8r-data.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-location-details",
@@ -12,7 +13,7 @@ export class LocationDetailsComponent implements OnInit {
   @Input() location: Location;
   public formError: string;
 
-  public apiKey: string = "AIzaSyCAmPHGlJBD4Jg510N89xcEFe5OnFiWIFo";
+  public apiKey: string = environment.mapsApiKey;
 
   public isFormVisible = false;
   public newReview: Review = {

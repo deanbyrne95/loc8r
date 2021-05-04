@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Location } from "../classes/location";
 import { Review } from "../classes/review";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class Loc8rDataService {
-  private baseApiUrl = "http://localhost:3000/api";
+  private baseApiUrl = environment.baseApiUrl;
 
   constructor(private http: HttpClient) {}
 
