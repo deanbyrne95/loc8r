@@ -35,7 +35,7 @@ block content
           .card.card-primary
             .card-block
               h2.card-title Location Map
-              img.img-fluid.rounded(src=`http://maps.googleapis.com/maps/api/staticmap?center=${location.coords.lat},${location.coords.lng}&zoom=17&size=400x350&sensor=false&markers=${location.coords.lat},${location.coords.lng}&scale=2&key=${process.env.MAPS_API}`)
+              img.img-fluid.rounded(src=`http://maps.googleapis.com/maps/api/staticmap?center=${location.coords.lat},${location.coords.lng}&zoom=17&size=400x350&sensor=false&markers=${location.coords.lat},${location.coords.lng}&scale=2&key=AIzaSyCAmPHGlJBD4Jg510N89xcEFe5OnFiWIFo`)
     .col-12.col-lg-3
       p.lead #{location.name} #{sidebar.context}
       p= sidebar.callToAction
