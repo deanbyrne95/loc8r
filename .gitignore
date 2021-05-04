@@ -62,3 +62,6 @@ typings/
 
 # Custom local build
 local-build/
+
+# Environment variables
+.env
