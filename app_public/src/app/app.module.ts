@@ -15,6 +15,7 @@ import { LocationDetailsComponent } from "./components/location-details/location
 import { DetailsPageComponent } from "./components/details-page/details-page.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { MostRecentOrderPipe } from "./pipes/most-recent-order.pipe";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,13 @@ import { MostRecentOrderPipe } from "./pipes/most-recent-order.pipe";
     DetailsPageComponent,
     MostRecentOrderPipe,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [FrameworkComponent],
 })
