@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { switchMap } from "rxjs/operators";
+import { Location } from "src/app/classes/location";
 import { Loc8rDataService } from "src/app/services/loc8r-data.service";
-import { Location } from "../home-list/home-list.component";
 
 @Component({
   selector: "app-details-page",
