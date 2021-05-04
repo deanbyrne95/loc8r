@@ -10,6 +10,7 @@
     "npm": ">=7.10.0"
   },
   "dependencies": {
+    "body-parser": "~1.18.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -18,8 +19,11 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pug": "2.0.0-beta11",
     "readline": "^1.3.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "serve-favicon": "~2.5.0"
   }
 }
