@@ -1,10 +1,14 @@
-require('dotenv');
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
+var favicon = require("serve-favicon");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const bodyParser = require("body-parser");
+const passport = require("passport");
 require("./app_api/models/db");
+require("./app_api/config/passport");
 
 // var indexRouter = require('./app_server/routes/index');
 var apiRouter = require("./app_api/routes/index");
@@ -21,25 +25,35 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "app_public")));
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, "app_public", "prod-build")));
-  app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function (req, res, next) {
-    res.sendFile(path.json(__dirname, "app_public", "build", "index.html"));
-  });
+let envBuild = "";
+if (process.env.NODE_ENV === "production") {
+  envBuild = "prod-";
+  app.use(
+    express.static(path.join(__dirname, "app_public", envBuild + "build"))
+  );
 } else {
-  app.use(express.static(path.join(__dirname, "app_public", "build")));
+  envBuild = "local-";
+  app.use(
+    express.static(path.join(__dirname, "app_public", envBuild + "build"))
+  );
 }
+app.use(passport.initialize());
 
 app.use("/api", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   next();
 });
 // app.use('/', indexRouter);
 app.use("/api", apiRouter);
+app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function (req, res, next) {
+  res.sendFile(
+    path.json(__dirname, "app_public", envBuild + "build", "index.html")
+  );
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
