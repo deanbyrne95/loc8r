@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Location } from "src/app/classes/location";
+import { Review } from "src/app/classes/review";
 import { Loc8rDataService } from "src/app/services/loc8r-data.service";
 
 @Component({
@@ -14,7 +15,7 @@ export class LocationDetailsComponent implements OnInit {
   public apiKey: string = "AIzaSyCAmPHGlJBD4Jg510N89xcEFe5OnFiWIFo";
 
   public isFormVisible = false;
-  public newReview = {
+  public newReview: Review = {
     author: "",
     rating: 5,
     reviewText: "",
@@ -49,7 +50,7 @@ export class LocationDetailsComponent implements OnInit {
       console.log(this.newReview);
       this.loc8rDataService
         .addReviewByLocationId(this.location._id, this.newReview)
-        .then((review) => {
+        .then((review: Review) => {
           console.log("Review saved", review);
           let reviews = this.location.reviews.slice(0);
           reviews.unshift(review);
@@ -57,6 +58,7 @@ export class LocationDetailsComponent implements OnInit {
           this.resetAndHideReviewForm();
         });
     } else {
+      console.log("Not valid");
       this.formError = "All fields required, please try again";
     }
   }
