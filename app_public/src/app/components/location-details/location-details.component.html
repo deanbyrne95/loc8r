@@ -26,7 +26,9 @@
     <div class="card card-primary">
       <div class="card-bock">
         <h2 class="card-title">Location Map</h2>
-        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{location.coords[1]}},{{location.coords[0]}}&zoom=17&size=400x350&sensor=false&markers={{location.coords[1]}},{{location.coords[0]}}&scale=2&key={{apiKey}}" class="img-fluid rounded" />
+        <img
+          src="http://maps.googleapis.com/maps/api/staticmap?center={{location.coords[1]}},{{location.coords[0]}}&zoom=17&size=400x350&sensor=false&markers={{location.coords[1]}},{{location.coords[0]}}&scale=2&key={{apiKey}}"
+          class="img-fluid rounded" />
       </div>
     </div>
   </div>
@@ -38,9 +40,10 @@
         <button type="button" (click)="isFormVisible=true" class="btn btn-primary float-right">Add review</button>
         <h2 class="card-title">Customer Reviews</h2>
         <div *ngIf="isFormVisible">
-          <form action="">
+          <form (ngSubmit)="submitReview()">
             <hr>
             <h4>Add Your Review</h4>
+            <div *ngIf="formError" class="alert alert-danger" role="alert">{{formError}}</div>
             <div class="form-group row">
               <label for="name" class="col-sm-2 col-form-label">Name</label>
               <div class="col-sm-10">
@@ -62,12 +65,14 @@
             <div class="form-group row">
               <label for="review" class="col-sm-2 col-form-label">Review</label>
               <div class="col-sm-10">
-                <textarea [(ngModel)]="newReview.reviewText" name="reviewText" id="reviewText" rows="5" class="form-control"></textarea>
+                <textarea [(ngModel)]="newReview.reviewText" name="reviewText" id="reviewText" rows="5"
+                  class="form-control"></textarea>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-12">
-                <button type="submit" class="btn btn-primary float-right" style="margin-left:15px">Submit review</button>
+                <button type="submit" class="btn btn-primary float-right" style="margin-left:15px">Submit
+                  review</button>
                 <button type="button" (click)="isFormVisible=false" class="btn btn-default float-right">Cancel</button>
               </div>
             </div>
@@ -78,7 +83,8 @@
           <div class="col-12 no-gutters review-header">
             <app-rating-stars [rating]="review.rating"></app-rating-stars>
             <span class="reviewAuthor m-2">{{ review.author }}</span>
-            <small class="reviewTimestamp float-right">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{ review.createdOn | date : 'HH:mm:ss' }})</small></small>
+            <small class="reviewTimestamp float-right">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{
+                review.createdOn | date : 'HH:mm:ss' }})</small></small>
           </div>
           <div class="col-12">
             <p [innerHTML]="review.reviewText | htmlLineBreaks"></p>
