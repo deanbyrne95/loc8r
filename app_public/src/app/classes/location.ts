@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 class OpeningTimes {
   days: string;
   opening: string;
@@ -12,7 +14,7 @@ export class Location {
   address: string;
   rating: number;
   facilities: string[];
-  reviews: any[];
+  reviews: Review[];
   coords: number[];
   openingTimes: OpeningTimes[];
 }
