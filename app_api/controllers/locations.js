@@ -48,7 +48,7 @@ const listLocationsByDistance = async (req, res) => {
         });
         return res.status(200).json(locations);
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 

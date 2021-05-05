@@ -8,7 +8,7 @@ const getAuthor = (req, res, callback) => {
             if (!user) {
                 return res.status(404).json({ 'message': 'User not found' });
             } else if (err) {
-                console.log(err);
+                console.error(err);
                 return res.status(404).json(err);
             }
             callback(req, res, user.name);
@@ -27,9 +27,7 @@ const calculateAverageRating = (location) => {
         location.rating = parseInt(total / count, 10);
         location.save((err) => {
             if (err) {
-                console.log(err);
-            } else {
-                console.log(`Average rating updated to ${location.rating}`);
+                console.error(err);
             }
         });
     }
