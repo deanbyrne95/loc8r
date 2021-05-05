@@ -1,14 +1,16 @@
 <div class="error">{{message}}</div>
-<div class="card" *ngFor="let location of locations">
-  <div class="card-block">
-    <h4>
-      <a routerLink="/location/{{location._id}}" class="mr-2">{{location.name}}</a>
-      <app-rating-stars [rating]="location.rating"></app-rating-stars>
-      <span class="badge badge-pill badge-default float-right">{{location.distance | distance}}</span>
-    </h4>
-    <p class="address">{{location.address}}</p>
-    <div class="facilities">
-      <span *ngFor="let facility of location.facilities" class="badge badge-warning">{{facility}}</span>
+<div class="locations" *ngFor="let location of locations">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">
+        <a routerLink="/location/{{location._id}}" class="mr-2">{{location.name}}</a>
+        <app-rating-stars [rating]="location.rating"></app-rating-stars>
+        <span class="badge badge-pill badge-default float-right">{{location.distance | distance}}</span>
+      </h4>
+      <h6 class="card-subtitle text-muted">{{location.address}}</h6>
+      <div class="facilities">
+        <span *ngFor="let facility of location.facilities" class="badge badge-warning">{{facility}}</span>
+      </div>
     </div>
   </div>
 </div>
