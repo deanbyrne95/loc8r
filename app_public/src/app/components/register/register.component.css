@@ -1,3 +1,15 @@
 a {
   color: #610810!important;
 }
+
+.card {
+  padding: 0!important;
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.card-header, .card-footer {
+  text-align: center;
+}

@@ -1,11 +1,11 @@
 <app-page-header [content]="pageContent.header"></app-page-header>
 <div class="row">
   <div class="col-12 col-md-8">
-    <div class="card text-white bg-dark mb-3">
-      <div class="card-header">
-        {{pageContent.register}}
-      </div>
+    <div class="card mb-3">
       <div class="card-body">
+        <h4 class="card-title">
+          {{pageContent.register}}
+        </h4>
         <form (submit)="submitRegister()">
           <div role="alert" *ngIf="formError" class="alert alert-danger">
             {{ formError }}
@@ -33,17 +33,17 @@
           </div>
           <div class="form-group row mb-0">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary float-right">Register</button>
+              <button type="submit" class="btn btn-primary btn-block">{{pageContent.register}}</button>
             </div>
           </div>
         </form>
       </div>
+      <div class="card-footer">
+        <small>
+          Already a member? Please <a routerLink="/login">login</a> instead!
+        </small>
+      </div>
     </div>
-    <p class="text-center">
-      <small>
-        Already a member? Please <a routerLink="/login">login</a> instead
-      </small>
-    </p>
   </div>
   <app-sidebar class="col-12 col-md-4" [content]="pageContent.sidebar"></app-sidebar>
 </div>
