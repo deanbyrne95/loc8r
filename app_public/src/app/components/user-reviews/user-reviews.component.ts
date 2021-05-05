@@ -26,9 +26,15 @@ export class UserReviewsComponent implements OnInit {
     return name ? name : "Guest";
   }
 
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
+  }
+
   private checkOwnership(name: string): void {
-    const author: string = this.getUsername();
-    this.owner = name === author;
+    if (this.isLoggedIn()) {
+      const author: string = this.getUsername();
+      this.owner = name === author;
+    }
   }
 
   ngOnInit() {
