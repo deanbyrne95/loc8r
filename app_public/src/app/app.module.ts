@@ -16,6 +16,7 @@ import { DetailsPageComponent } from "./components/details-page/details-page.com
 import { AppRoutingModule } from "./app-routing.module";
 import { MostRecentOrderPipe } from "./pipes/most-recent-order.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     LocationDetailsComponent,
     DetailsPageComponent,
     MostRecentOrderPipe,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
