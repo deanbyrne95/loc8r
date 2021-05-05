@@ -5,7 +5,7 @@
     </h4>
     <p class="card-text"><small class="blockquote-footer text-white"><em>"<span [innerHTML]="review.reviewText"></span>"</em></small></p>
     <p class="card-text text-muted float-right m-0"><small class="reviewTimestamp">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{ review.createdOn | date : 'HH:mm' }})</small></small></p>
-    <button class="btn btn-sm btn-primary position-absolute mr-1" (click)="deleteReview()"><i class="fa fa-trash"></i></button>
+    <button class="btn btn-sm btn-primary position-absolute mr-1" (click)="deleteReview()" *ngIf="owner"><i class="fa fa-trash"></i></button>
   </div>
   <div class="card-footer p-0" *ngIf="formError">
     <div class="alert alert-danger m-0" role="alert">

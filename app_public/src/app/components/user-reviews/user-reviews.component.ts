@@ -38,9 +38,12 @@ export class UserReviewsComponent implements OnInit {
   public deleteReview(): void {
     this.formError = "";
     this.loc8rDataService
-    .deleteReviewById(this.location._id, this.review._id)
-    .then(() => {
-      this.deletedReview.emit(this.review);
-    });
+      .deleteReviewById(this.location._id, this.review._id)
+      .then(() => {
+        this.deletedReview.emit(this.review);
+      })
+      .catch((err) => {
+        this.formError = err;
+      });
   }
 }
