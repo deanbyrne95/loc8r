@@ -21,6 +21,24 @@ export class AuthenticationService {
     this.storage.setItem("loc8r-token", token);
   }
 
+  public getCurrentUser(): User {
+    if (this.isLoggedIn()) {
+      const token: string = this.getToken();
+      const { email, name } = JSON.parse(atob(token.split(".")[1]));
+      return { email, name } as User;
+    }
+  }
+
+  public isLoggedIn(): boolean {
+    const token: string = this.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  }
+
   public login(user: User): Promise<any> {
     return this.loc8rDataService
       .login(user)
