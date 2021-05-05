@@ -37,7 +37,8 @@
   <div class="col-12">
     <div class="card card-primary review-card">
       <div class="card-block" [ngSwitch]="isLoggedIn()">
-        <button type="button" (click)="isFormVisible=true" class="btn btn-primary float-right" *ngSwitchCase="true">Add review</button>
+        <button type="button" (click)="isFormVisible=true" class="btn btn-primary float-right" *ngSwitchCase="true">Add
+          review</button>
         <a routerLink="/login" class="btn btn-primary float-right" *ngSwitchDefault>Login to post review</a>
         <h2 class="card-title">Customer Reviews</h2>
         <div *ngIf="isFormVisible">
@@ -74,15 +75,14 @@
             <hr>
           </form>
         </div>
-        <div *ngFor="let review of location.reviews | mostRecentOrder" class="row review">
-          <div class="col-12 no-gutters review-header">
-            <app-rating-stars [rating]="review.rating"></app-rating-stars>
-            <span class="reviewAuthor m-2">{{ review.author }}</span>
-            <small class="reviewTimestamp float-right">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{
-                review.createdOn | date : 'HH:mm:ss' }})</small></small>
-          </div>
-          <div class="col-12">
-            <p [innerHTML]="review.reviewText | htmlLineBreaks"></p>
+        <div class="card p-0 mb-1" *ngFor="let review of location.reviews | mostRecentOrder">
+          <div class="card-body">
+            <h4 class="card-title">{{ review.author }}
+              <app-rating-stars class="float-right" [rating]="review.rating"></app-rating-stars>
+            </h4>
+            <p class="card-text"><small class="blockquote-footer text-white"><em>"<span [innerHTML]="review.reviewText"></span>"</em></small></p>
+            <p class="card-text float-right"><small class="reviewTimestamp float-right">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{
+              review.createdOn | date : 'HH:mm' }})</small></small></p>
           </div>
         </div>
       </div>
