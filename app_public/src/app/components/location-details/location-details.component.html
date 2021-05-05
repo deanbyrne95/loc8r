@@ -75,7 +75,7 @@
             <hr>
           </form>
         </div>
-        <app-user-reviews *ngFor="let review of location.reviews | mostRecentOrder" [review]="review" [location]="location" (deletedReview)="updateReviews(location.reviews, review)"></app-user-reviews>
+        <app-user-reviews *ngFor="let review of location.reviews | mostRecentOrder" [review]="review" [location]="location" (deletedReview)="refreshLocation(location)"></app-user-reviews>
       </div>
     </div>
   </div>

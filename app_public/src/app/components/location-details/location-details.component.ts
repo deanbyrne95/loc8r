@@ -51,15 +51,12 @@ export class LocationDetailsComponent implements OnInit {
     this.newReview.reviewText = "";
   }
 
-  public updateReviews(reviews: Review[], review: Review): void {
-    console.log("UPDATING REVIEWS");
-    const index = reviews.indexOf(review);
-    if(index >= 0) {
-      reviews.splice(index, 1);
-    } else {
-      reviews.unshift(review);
-    }
-    this.location.reviews = reviews;
+  public refreshLocation(location: Location) {
+    this.loc8rDataService
+      .getLocationById(location._id)
+      .then((location: Location) => {
+        this.location = location;
+      });
   }
 
   public submitReview(): void {
@@ -68,9 +65,8 @@ export class LocationDetailsComponent implements OnInit {
     if (this.isFormValid()) {
       this.loc8rDataService
         .addReviewByLocationId(this.location._id, this.newReview)
-        .then((review: Review) => {
-          let reviews = this.location.reviews.slice(0);
-          this.updateReviews(reviews, review);
+        .then(() => {
+          this.refreshLocation(this.location);
           this.resetAndHideReviewForm();
         });
     } else {
