@@ -18,6 +18,7 @@ import { MostRecentOrderPipe } from "./pipes/most-recent-order.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { LoginComponent } from './components/login/login.component';
     MostRecentOrderPipe,
     RegisterComponent,
     LoginComponent,
+    UserReviewsComponent,
   ],
   imports: [
     BrowserModule,

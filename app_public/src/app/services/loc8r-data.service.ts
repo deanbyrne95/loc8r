@@ -62,6 +62,23 @@ export class Loc8rDataService {
       .catch(this.handleError);
   }
 
+  public deleteReviewById(
+    locationId: string,
+    reviewId: string
+  ): Promise<Review> {
+    const url: string = `${this.baseApiUrl}/locations/${locationId}/reviews/${reviewId}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getItem("loc8r-token")}`,
+      }),
+    };
+    return this.http
+      .delete(url, httpOptions)
+      .toPromise()
+      .then((response) => response as Review)
+      .catch(this.handleError);
+  }
+
   /**
    * USERS
    */

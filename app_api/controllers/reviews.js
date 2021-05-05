@@ -160,7 +160,7 @@ const updateReview = (req, res) => {
         });
 };
 
-const deleteReview = (req, res) => {
+const removeReview = (req, res, author) => {
     const { locationId, reviewId } = req.params;
     if (!locationId && !reviewId) {
         return res.status(404).json({
@@ -200,6 +200,25 @@ const deleteReview = (req, res) => {
                 });
             }
         });
+}
+
+const deleteReview = (req, res) => {
+    getAuthor(req, res, (req, res, userName) => {
+        const locationId = req.params.locationId;
+        if (locationId) {
+            Rev.findById(locationId)
+                .select('reviews')
+                .exec((err, location) => {
+                    if (err) {
+                        res.status(400).json(err);
+                    } else {
+                        removeReview(req, res, location, userName);
+                    }
+                });
+        } else {
+            res.status(404).json({ 'message': 'Location not found' });
+        }
+    });
 };
 
 module.exports = {

@@ -75,16 +75,7 @@
             <hr>
           </form>
         </div>
-        <div class="card p-0 mb-1" *ngFor="let review of location.reviews | mostRecentOrder">
-          <div class="card-body">
-            <h4 class="card-title">{{ review.author }}
-              <app-rating-stars class="float-right" [rating]="review.rating"></app-rating-stars>
-            </h4>
-            <p class="card-text"><small class="blockquote-footer text-white"><em>"<span [innerHTML]="review.reviewText"></span>"</em></small></p>
-            <p class="card-text float-right"><small class="reviewTimestamp float-right">{{ review.createdOn | date : 'dd/MM/yyyy' }} <small>({{
-              review.createdOn | date : 'HH:mm' }})</small></small></p>
-          </div>
-        </div>
+        <app-user-reviews *ngFor="let review of location.reviews | mostRecentOrder" [review]="review" [location]="location" (deletedReview)="updateReviews(location.reviews, review)"></app-user-reviews>
       </div>
     </div>
   </div>

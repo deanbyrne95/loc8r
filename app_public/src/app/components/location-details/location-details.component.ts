@@ -18,9 +18,11 @@ export class LocationDetailsComponent implements OnInit {
 
   public isFormVisible = false;
   public newReview: Review = {
+    _id: "",
     author: "",
     rating: 5,
     reviewText: "",
+    createdOn: new Date(),
   };
 
   constructor(
@@ -49,6 +51,17 @@ export class LocationDetailsComponent implements OnInit {
     this.newReview.reviewText = "";
   }
 
+  public updateReviews(reviews: Review[], review: Review): void {
+    console.log("UPDATING REVIEWS");
+    const index = reviews.indexOf(review);
+    if(index >= 0) {
+      reviews.splice(index, 1);
+    } else {
+      reviews.unshift(review);
+    }
+    this.location.reviews = reviews;
+  }
+
   public submitReview(): void {
     this.formError = "";
     this.newReview.author = this.getUsername();
@@ -57,8 +70,7 @@ export class LocationDetailsComponent implements OnInit {
         .addReviewByLocationId(this.location._id, this.newReview)
         .then((review: Review) => {
           let reviews = this.location.reviews.slice(0);
-          reviews.unshift(review);
-          this.location.reviews = reviews;
+          this.updateReviews(reviews, review);
           this.resetAndHideReviewForm();
         });
     } else {
