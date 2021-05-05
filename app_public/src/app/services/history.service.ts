@@ -21,7 +21,6 @@ export class HistoryService {
     const exclude: string[] = ["/register", "/login"];
     const filtered = this.urls.filter((url) => !exclude.includes(url));
     const length = filtered.length;
-    console.log(filtered);
     return length > 1 ? filtered[length - 1] : "/";
   }
 
