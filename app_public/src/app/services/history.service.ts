@@ -17,6 +17,14 @@ export class HistoryService {
       });
   }
 
+  public getLastNonLoginUrl(): string {
+    const exclude: string[] = ["/register", "/login"];
+    const filtered = this.urls.filter((url) => !exclude.includes(url));
+    const length = filtered.length;
+    console.log(filtered);
+    return length > 1 ? filtered[length - 1] : "/";
+  }
+
   public getPreviousUrl(): string {
     const length = this.urls.length;
     return length > 1 ? this.urls[length - 2] : "/";

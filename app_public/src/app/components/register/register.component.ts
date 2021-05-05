@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/services/authentication.service";
+import { HistoryService } from "src/app/services/history.service";
 
 @Component({
   selector: "app-register",
@@ -27,22 +28,32 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private historyService: HistoryService
   ) {}
 
   public submitRegister(): void {
     this.formError = "";
-    if (!this.credentials.name || !this.credentials.email || !this.credentials.password) {
-      this.formError = "All fields are required, please try again."
+    if (
+      !this.credentials.name ||
+      !this.credentials.email ||
+      !this.credentials.password
+    ) {
+      this.formError = "All fields are required, please try again.";
     } else {
       this.register();
     }
   }
 
   public register() {
-    this.authenticationService.register(this.credentials)
-    .then(() => this.router.navigateByUrl('/'))
-    .catch((message) => this.formError = message);
+    this.authenticationService
+      .register(this.credentials)
+      .then(() => {
+        this.router.navigateByUrl(this.historyService.getLastNonLoginUrl());
+      })
+      .catch((message) => {
+        this.formError = message;
+      });
   }
 
   ngOnInit() {}
