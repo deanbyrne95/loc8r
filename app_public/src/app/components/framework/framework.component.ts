@@ -28,4 +28,9 @@ export class FrameworkComponent implements OnInit {
     const user: User = this.authenticationService.getCurrentUser();
     return user ? user.name : "Guest";
   }
+
+  public getId(): string {
+    const user: User = this.authenticationService.getCurrentUser();
+    return user ? user._id : "";
+  }
 }
