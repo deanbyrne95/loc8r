@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { FacilitiesComponent } from './components/facilities/facilities.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     UserReviewsComponent,
     FacilitiesComponent,
     UserProfileComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
