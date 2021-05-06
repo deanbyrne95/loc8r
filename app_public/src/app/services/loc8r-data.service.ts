@@ -50,13 +50,22 @@ export class Loc8rDataService {
     formData: Review
   ): Promise<Review> {
     const url: string = `${this.baseApiUrl}/locations/${locationId}/reviews`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.storage.getItem("loc8r-token")}`,
-      }),
-    };
+    const httpOptions = this.getHttpHeaders();
     return this.http
       .post(url, formData, httpOptions)
+      .toPromise()
+      .then((response) => response as Review)
+      .catch(this.handleError);
+  }
+
+  public updateReviewById(
+    locationId: string,
+    formData: Review
+  ): Promise<Review> {
+    const url = `${this.baseApiUrl}/locations/${locationId}/reviews/${formData._id}`;
+    const httpOptions = this.getHttpHeaders();
+    return this.http
+      .put(url, formData, httpOptions)
       .toPromise()
       .then((response) => response as Review)
       .catch(this.handleError);
@@ -67,11 +76,7 @@ export class Loc8rDataService {
     reviewId: string
   ): Promise<Review> {
     const url: string = `${this.baseApiUrl}/locations/${locationId}/reviews/${reviewId}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.storage.getItem("loc8r-token")}`,
-      }),
-    };
+    const httpOptions = this.getHttpHeaders();
     return this.http
       .delete(url, httpOptions)
       .toPromise()
@@ -106,5 +111,17 @@ export class Loc8rDataService {
   private handleError(error: any): Promise<any> {
     console.error("Something has gone wrong: ", error);
     return Promise.reject(error.message || error);
+  }
+
+  /**
+   * HTTP HEADERS
+   */
+  private getHttpHeaders(): { headers: HttpHeaders } {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getItem("loc8r-token")}`,
+      }),
+    };
+    return httpOptions;
   }
 }
