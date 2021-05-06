@@ -147,6 +147,7 @@ const updateReview = (req, res) => {
                     review.author = req.body.author;
                     review.rating = req.body.rating;
                     review.reviewText = req.body.reviewText;
+                    review.createdOn = Date.now();
                     location.save((err, location) => {
                         if (err) {
                             res.status(404).json(err);
