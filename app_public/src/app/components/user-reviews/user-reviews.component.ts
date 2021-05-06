@@ -22,7 +22,7 @@ export class UserReviewsComponent implements OnInit {
     author: "",
     rating: 0,
     reviewText: "",
-    createdOn: new Date()
+    createdOn: new Date(),
   };
 
   constructor(
@@ -46,16 +46,29 @@ export class UserReviewsComponent implements OnInit {
     }
   }
 
+  public isFormValid(review: Review): boolean {
+    if (
+      review.author &&
+      review.rating &&
+      review.reviewText
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public editReview(bool: boolean): void {
     this.isFormVisible = bool;
-    if(this.isFormVisible) {
+    this.formError = "";
+    if (this.isFormVisible) {
       this.reviewForm = {
         _id: this.review._id,
         author: this.review.author,
         rating: this.review.rating,
         reviewText: this.review.reviewText,
-        createdOn: this.review.createdOn
-      }
+        createdOn: this.review.createdOn,
+      };
     } else {
       this.reviewForm = new Review();
     }
@@ -79,11 +92,16 @@ export class UserReviewsComponent implements OnInit {
 
   public updateReview(): void {
     this.formError = "";
-    this.loc8rDataService
-    .updateReviewById(this.location._id, this.reviewForm)
-    .then(() => {
-      this.updatedReview.emit(this.review);
-      this.editReview(false);
-    })
+    if (this.isFormValid(this.reviewForm)) {
+      this.loc8rDataService
+      .updateReviewById(this.location._id, this.reviewForm)
+      .then(() => {
+        this.updatedReview.emit(this.review);
+        this.editReview(false);
+      });
+    } else {
+      console.error("Not valid");
+      this.formError = "All fields required, please try again";
+    }
   }
 }
