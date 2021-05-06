@@ -12,6 +12,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    admin: {
+        type: Boolean,
+        required: false,
+        'default': false
+    },
+    editor: {
+        type: Boolean,
+        required: false,
+        'default': true
+    },
     hash: String,
     salt: String,
 });
