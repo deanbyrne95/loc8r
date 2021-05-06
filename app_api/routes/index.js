@@ -9,6 +9,7 @@ const auth = jwt({
 const locationsController = require('../controllers/locations');
 const reviewsController = require('../controllers/reviews');
 const authenticationController = require('../controllers/authentication');
+const usersController = require('../controllers/users');
 
 // LOCATIONS
 router
@@ -33,7 +34,18 @@ router
     .put(auth, reviewsController.updateReview)
     .delete(auth, reviewsController.deleteReview);
 
+// AUTHENTICATION
 router.post('/register', authenticationController.register);
 router.post('/login', authenticationController.login);
+
+// USERS
+router.route('/profiles')
+    .get(usersController.getUserList)
+
+router
+    .route('/profiles/:userId')
+    .get(usersController.getUser)
+    .put(usersController.updateUser)
+    .delete(usersController.deleteUser);
 
 module.exports = router;
