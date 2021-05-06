@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   public formError: string = "";
 
   public credentials = {
+    _id: "",
     name: "",
     email: "",
     password: "",
