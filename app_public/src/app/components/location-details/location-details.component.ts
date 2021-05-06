@@ -32,23 +32,22 @@ export class LocationDetailsComponent implements OnInit {
 
   ngOnInit() {}
 
-  private isFormValid(): boolean {
+  public toggleReview(bool: boolean): void {
+    this.formError = "";
+    this.isFormVisible = bool;
+    this.newReview = new Review
+  }
+
+  private isFormValid(review: Review): boolean {
     if (
-      this.newReview.author &&
-      this.newReview.rating &&
-      this.newReview.reviewText
+      review.author &&
+      review.rating &&
+      review.reviewText
     ) {
       return true;
     } else {
       return false;
     }
-  }
-
-  private resetAndHideReviewForm(): void {
-    this.isFormVisible = false;
-    this.newReview.author = "";
-    this.newReview.rating = 5;
-    this.newReview.reviewText = "";
   }
 
   public refreshLocation(location: Location) {
@@ -60,14 +59,13 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   public submitReview(): void {
-    this.formError = "";
     this.newReview.author = this.getUsername();
-    if (this.isFormValid()) {
+    if (this.isFormValid(this.newReview)) {
       this.loc8rDataService
         .addReviewByLocationId(this.location._id, this.newReview)
         .then(() => {
           this.refreshLocation(this.location);
-          this.resetAndHideReviewForm();
+          this.toggleReview(false);
         });
     } else {
       console.error("Not valid");
