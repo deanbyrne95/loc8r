@@ -12,15 +12,8 @@
         </p>
       </div>
     </div>
-    <div class="card card-primary">
-      <div class="card-bock">
-        <h2 class="card-title">Facilities</h2>
-        <span *ngFor="let facility of location.facilities" class="m-1 badge badge-warning">
-          <i class="fa fa-check"></i>
-          {{facility}}
-        </span>
-      </div>
-    </div>
+    <app-facilities class="card card-primary" [facilities]="location.facilities" [isLoggedIn]="isLoggedIn">
+    </app-facilities>
   </div>
   <div class="col-12 col-md-6">
     <div class="card card-primary">

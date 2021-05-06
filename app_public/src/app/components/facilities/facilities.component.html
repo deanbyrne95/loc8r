@@ -1,0 +1,11 @@
+<div class="card-body p-0">
+  <div class="float-right" *ngIf="isLoggedIn()">
+    <button class="btn btn-sm btn-primary float-right"><i class="fa fa-edit"></i></button>
+  </div>
+  <h2 class="card-title">Facilities</h2>
+
+  <span *ngFor="let facility of facilities" class="m-1 badge badge-warning">
+    <i class="fa fa-check"></i>
+    {{facility}}
+  </span>
+</div>
