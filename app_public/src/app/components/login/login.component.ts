@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
     name: "",
     email: "",
     password: "",
+    admin: false,
+    editor: true,
   };
 
   public pageContent = {
