@@ -1,3 +1,7 @@
 .active {
     color: #610810!important;
 }
+
+.nav-item, .dropdown-item {
+  cursor: pointer!important;
+}
