@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-12 col-md-6">
     <app-rating-stars [rating]="location.rating"></app-rating-stars>
-    <p>{{location.address}}</p>
     <div class="card card-primary">
       <div class="card-block">
         <h2 class="card-title">Opening Hours</h2>
@@ -17,11 +16,12 @@
   </div>
   <div class="col-12 col-md-6">
     <div class="card card-primary">
-      <div class="card-bock">
+      <div class="card-body p-0">
         <h2 class="card-title">Location Map</h2>
         <img
           src="http://maps.googleapis.com/maps/api/staticmap?center={{location.coords[1]}},{{location.coords[0]}}&zoom=17&size=400x350&sensor=false&markers={{location.coords[1]}},{{location.coords[0]}}&scale=2&key={{apiKey}}"
-          class="img-fluid rounded" />
+          class="img-fluid rounded mb-1" />
+        <p class="card-text text-center small">{{location.address}}</p>
       </div>
     </div>
   </div>
@@ -34,41 +34,42 @@
           review</button>
         <a routerLink="/login" class="btn btn-primary float-right" *ngSwitchDefault>Login to post review</a>
         <h2 class="card-title">Customer Reviews</h2>
-        <div *ngIf="isFormVisible">
-          <form (ngSubmit)="submitReview()">
-            <hr>
-            <h4>Add Your Review</h4>
-            <div *ngIf="formError" class="alert alert-danger" role="alert">{{formError}}</div>
-            <div class="form-group row">
-              <label for="rating" class="col-sm-2 col-form-label">Rating</label>
-              <div class="col-sm-10 col-md-2">
-                <select [(ngModel)]="newReview.rating" id="rating" name="rating" class="form-control">
-                  <option [ngValue]="5">5</option>
-                  <option [ngValue]="4">4</option>
-                  <option [ngValue]="3">3</option>
-                  <option [ngValue]="2">2</option>
-                  <option [ngValue]="1">1</option>
-                </select>
+        <div class="card card-primary" *ngIf="isFormVisible">
+          <div class="card-body">
+            <form (ngSubmit)="submitReview()">
+              <h4 class="card-title">Add Your Review</h4>
+              <div *ngIf="formError" class="alert alert-danger" role="alert">{{formError}}</div>
+              <div class="form-group row">
+                <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+                <div class="col-sm-10 col-md-2">
+                  <select [(ngModel)]="newReview.rating" id="rating" name="rating" class="form-control">
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="4">4</option>
+                    <option [ngValue]="3">3</option>
+                    <option [ngValue]="2">2</option>
+                    <option [ngValue]="1">1</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="review" class="col-sm-2 col-form-label">Review</label>
-              <div class="col-sm-10">
-                <textarea [(ngModel)]="newReview.reviewText" name="reviewText" id="reviewText" rows="5"
-                  class="form-control"></textarea>
+              <div class="form-group row">
+                <label for="review" class="col-sm-2 col-form-label">Review</label>
+                <div class="col-sm-10">
+                  <textarea [(ngModel)]="newReview.reviewText" name="reviewText" id="reviewText" rows="5"
+                    class="form-control"></textarea>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary float-right" style="margin-left:15px">Submit
-                  review</button>
-                <button type="button" (click)="isFormVisible=false" class="btn btn-default float-right">Cancel</button>
+              <div class="form-group row">
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary float-right" style="margin-left:15px">Submit
+                    review</button>
+                  <button type="button" (click)="isFormVisible=false" class="btn btn-default float-right">Cancel</button>
+                </div>
               </div>
-            </div>
-            <hr>
-          </form>
+            </form>
+          </div>
         </div>
-        <app-user-reviews *ngFor="let review of location.reviews | mostRecentOrder" [review]="review" [location]="location" (updatedReview)="refreshLocation(location)"></app-user-reviews>
+        <app-user-reviews *ngFor="let review of location.reviews | mostRecentOrder" [review]="review"
+          [location]="location" (updatedReview)="refreshLocation(location)"></app-user-reviews>
       </div>
     </div>
   </div>
