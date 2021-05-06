@@ -93,7 +93,7 @@ const createLocation = (req, res) => {
 const getLocation = (req, res) => {
     Loc.findById(req.params.locationId).exec((err, location) => {
         if (!location) {
-            return res.status(404).json({ 'message': 'location not found' });
+            return res.status(404).json({ 'message': 'Location not found' });
         } else if (err) {
             return res.status(404).json(err);
         } else {
@@ -105,7 +105,7 @@ const getLocation = (req, res) => {
 const updateLocation = (req, res) => {
     if (!req.params.locationId) {
         return res.status(404).json({
-            'message': 'LocationId is required',
+            'message': 'locationId is required',
         });
     }
     Loc.findById(req.params.locationId)
