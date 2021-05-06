@@ -25,12 +25,14 @@ const calculateAverageRating = (location) => {
             return acc + rating;
         }, 0);
         location.rating = parseInt(total / count, 10);
-        location.save((err) => {
-            if (err) {
-                console.error(err);
-            }
-        });
+    } else {
+        location.rating = 0;
     }
+    location.save((err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
 };
 
 const updateAverageRating = (locationId) => {
@@ -39,6 +41,8 @@ const updateAverageRating = (locationId) => {
         .exec((err, location) => {
             if (!err) {
                 calculateAverageRating(location);
+            } else {
+                console.error(err);
             }
         });
 };
@@ -200,7 +204,7 @@ const removeReview = (req, res, author) => {
                 });
             }
         });
-}
+};
 
 const deleteReview = (req, res) => {
     getAuthor(req, res, (req, res, userName) => {
