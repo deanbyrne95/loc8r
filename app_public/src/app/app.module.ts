@@ -20,6 +20,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { FacilitiesComponent } from './components/facilities/facilities.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FacilitiesComponent } from './components/facilities/facilities.componen
     LoginComponent,
     UserReviewsComponent,
     FacilitiesComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
