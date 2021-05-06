@@ -9,12 +9,15 @@ import { HistoryService } from "src/app/services/history.service";
   styleUrls: ["./framework.component.css"],
 })
 export class FrameworkComponent implements OnInit {
+  user: User;
   constructor(
     private authenticationService: AuthenticationService,
     private historyService: HistoryService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUser();
+  }
 
   public logout(): void {
     this.authenticationService.logout();
@@ -24,13 +27,7 @@ export class FrameworkComponent implements OnInit {
     return this.authenticationService.isLoggedIn();
   }
 
-  public getUsername(): string {
-    const user: User = this.authenticationService.getCurrentUser();
-    return user ? user.name : "Guest";
-  }
-
-  public getId(): string {
-    const user: User = this.authenticationService.getCurrentUser();
-    return user ? user._id : "";
+  public getUser(): void {
+    this.user = this.authenticationService.getCurrentUser();
   }
 }

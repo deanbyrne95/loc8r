@@ -15,9 +15,14 @@
           <a routerLink="/login" class="nav-link">Sign-in</a>
         </li>
         <li class="nav-item dropdown" routerLinkActive="active" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown">{{getUsername()}}</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.name}}</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/profile/{{getId()}}">Profile</a>
+            <div *ngIf="user.admin">
+              <h6 class="dropdown-header">Admin</h6>
+              <a class="dropdown-item">Profile List</a>
+              <div class="dropdown-divider"></div>
+            </div>
+            <a class="dropdown-item" routerLink="/profile/{{user._id}}">Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
