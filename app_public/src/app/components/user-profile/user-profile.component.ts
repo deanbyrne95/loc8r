@@ -1,4 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { switchMap } from "rxjs/operators";
+import { User } from "src/app/classes/user";
+import { Loc8rDataService } from "src/app/services/loc8r-data.service";
 
 @Component({
   selector: "app-user-profile",
@@ -6,15 +10,32 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./user-profile.component.css"],
 })
 export class UserProfileComponent implements OnInit {
+  user: User;
   public pageContent = {
     header: {
-      title: "Profile",
-      strapline: "This is you!",
+      title: "Your Profile",
+      strapline: "",
     },
-    sidebar: "Be who you are!"
+    sidebar: "",
   };
 
-  constructor() {}
+  constructor(
+    private loc8rDataService: Loc8rDataService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.route.paramMap
+    .pipe(
+      switchMap((params: ParamMap) => {
+        let id = params.get("userId");
+        return this.loc8rDataService.getUserById(id);
+      })
+    )
+    .subscribe((user: User) => {
+      this.user = user;
+      this.pageContent.header.strapline = "Welcome back, " + user.name;
+      this.pageContent.sidebar = "Seize the day, " + user.name + "!";
+    });
+  }
 }

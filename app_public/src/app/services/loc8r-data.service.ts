@@ -85,7 +85,7 @@ export class Loc8rDataService {
   }
 
   /**
-   * USERS
+   * AUTHENTICATION
    */
   public login(user: User): Promise<AuthResponse> {
     return this.makeAuthApiCall("login", user);
@@ -101,6 +101,18 @@ export class Loc8rDataService {
       .post(url, user)
       .toPromise()
       .then((response) => response as AuthResponse)
+      .catch(this.handleError);
+  }
+
+  /**
+   * USERS
+   */
+  public getUserById(userId: string): Promise<User> {
+    const url = `${this.baseApiUrl}/profiles/${userId}`;
+    return this.http
+      .get(url)
+      .toPromise()
+      .then((response) => response as User)
       .catch(this.handleError);
   }
 
