@@ -12,9 +12,18 @@ import { Loc8rDataService } from "src/app/services/loc8r-data.service";
 export class UserReviewsComponent implements OnInit {
   @Input() location: Location;
   @Input() review: Review;
-  @Output() deletedReview = new EventEmitter<Review>();
+  @Output() updatedReview = new EventEmitter<Review>();
+
+  public isFormVisible = false;
   public owner: boolean;
   public formError = "";
+  public reviewForm: Review = {
+    _id: "",
+    author: "",
+    rating: 0,
+    reviewText: "",
+    createdOn: new Date()
+  };
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -37,6 +46,21 @@ export class UserReviewsComponent implements OnInit {
     }
   }
 
+  public editReview(bool: boolean): void {
+    this.isFormVisible = bool;
+    if(this.isFormVisible) {
+      this.reviewForm = {
+        _id: this.review._id,
+        author: this.review.author,
+        rating: this.review.rating,
+        reviewText: this.review.reviewText,
+        createdOn: this.review.createdOn
+      }
+    } else {
+      this.reviewForm = new Review();
+    }
+  }
+
   ngOnInit() {
     this.checkOwnership(this.review.author);
   }
@@ -46,10 +70,20 @@ export class UserReviewsComponent implements OnInit {
     this.loc8rDataService
       .deleteReviewById(this.location._id, this.review._id)
       .then(() => {
-        this.deletedReview.emit(this.review);
+        this.updatedReview.emit(this.review);
       })
       .catch((err) => {
         this.formError = err;
       });
+  }
+
+  public updateReview(): void {
+    this.formError = "";
+    this.loc8rDataService
+    .updateReviewById(this.location._id, this.reviewForm)
+    .then(() => {
+      this.updatedReview.emit(this.review);
+      this.editReview(false);
+    })
   }
 }
