@@ -22,6 +22,7 @@ import { UserReviewsComponent } from "./components/user-reviews/user-reviews.com
 import { FacilitiesComponent } from "./components/facilities/facilities.component";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { UserDetailsComponent } from "./components/user-details/user-details.component";
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserDetailsComponent } from "./components/user-details/user-details.com
     FacilitiesComponent,
     UserProfileComponent,
     UserDetailsComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

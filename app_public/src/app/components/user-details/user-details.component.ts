@@ -75,9 +75,9 @@ export class UserDetailsComponent implements OnInit {
     this.editUser(false);
   }
 
-  public deleteUser() {
+  public deleteUser(user: User) {
     this.formError = "";
-    this.loc8rDataService.deleteUserById(this.user);
+    this.loc8rDataService.deleteUserById(user);
     this.authenticationService.logout();
     this.router.navigateByUrl("/");
   }
