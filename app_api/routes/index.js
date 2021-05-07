@@ -37,6 +37,7 @@ router
 // AUTHENTICATION
 router.post('/register', authenticationController.register);
 router.post('/login', authenticationController.login);
+router.post('/profiles/:userId/edit', authenticationController.refreshUser);
 
 // USERS
 router.route('/profiles')

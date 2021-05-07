@@ -38,7 +38,27 @@ const login = (req, res) => {
     })(req, res);
 };
 
+const refreshUser = (req, res) => {
+    if(!req.body.email || !req.body.name) {
+        return res.status(400).json({ 'message': 'All fields required' });
+    }
+    const user = new User();
+    user._id = req.body._id;
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.admin = req.body.admin;
+    user.editor = req.body.editor;
+    user.__v = req.body.__v;
+    if(user) {
+        const token = user.generateJwt();
+        res.status(200).json({token});
+    } else {
+        res.status(401).json({'message': 'No user'});
+    }
+}
+
 module.exports = {
     register,
     login,
+    refreshUser
 };
