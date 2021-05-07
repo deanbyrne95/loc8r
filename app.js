@@ -50,7 +50,7 @@ app.use('/api', (req, res, next) => {
 });
 // app.use('/', indexRouter);
 app.use('/api', apiRouter);
-app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, function (req, res, next) {
+app.get(/(\/about)|(\/locations\/[a-z0-9]{24})|(\/profiles\/[a-z0-9]{24})/, function (req, res, next) {
     res.sendFile(
         path.json(__dirname, 'app_public', envBuild + 'build', 'index.html')
     );
