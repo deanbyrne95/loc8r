@@ -10,10 +10,10 @@ import { UserProfileComponent } from "./components/user-profile/user-profile.com
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "about", component: AboutComponent },
-  { path: "location/:locationId", component: DetailsPageComponent },
+  { path: "locations/:locationId", component: DetailsPageComponent },
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
-  { path: "profile/:userId", component: UserProfileComponent },
+  { path: "profiles/:userId", component: UserProfileComponent },
 ];
 
 @NgModule({
