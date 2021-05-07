@@ -16,12 +16,12 @@ import { DetailsPageComponent } from "./components/details-page/details-page.com
 import { AppRoutingModule } from "./app-routing.module";
 import { MostRecentOrderPipe } from "./pipes/most-recent-order.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
-import { FacilitiesComponent } from './components/facilities/facilities.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { RegisterComponent } from "./components/register/register.component";
+import { LoginComponent } from "./components/login/login.component";
+import { UserReviewsComponent } from "./components/user-reviews/user-reviews.component";
+import { FacilitiesComponent } from "./components/facilities/facilities.component";
+import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { UserDetailsComponent } from "./components/user-details/user-details.component";
 
 @NgModule({
   declarations: [
