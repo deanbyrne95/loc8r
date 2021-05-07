@@ -55,6 +55,9 @@ export class LocationDetailsComponent implements OnInit {
       .getLocationById(location._id)
       .then((location: Location) => {
         this.location = location;
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }
 
@@ -78,7 +81,7 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   public getUsername(): string {
-    const { name } = this.authenticationService.getCurrentUser();
-    return name ? name : "Guest";
+    const user = this.authenticationService.getCurrentUser();
+    return user.name ? user.name : "Guest";
   }
 }

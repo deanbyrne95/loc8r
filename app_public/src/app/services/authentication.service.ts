@@ -8,6 +8,8 @@ import { Loc8rDataService } from "./loc8r-data.service";
   providedIn: "root",
 })
 export class AuthenticationService {
+  user: User = new User();
+
   constructor(
     @Inject(BROWSER_STORAGE) private storage: Storage,
     private loc8rDataService: Loc8rDataService
@@ -24,8 +26,8 @@ export class AuthenticationService {
   public getCurrentUser(): User {
     if (this.isLoggedIn()) {
       const token: string = this.getToken();
-      const { _id, email, name, admin, editor } = JSON.parse(atob(token.split(".")[1]));
-      return {_id,  email, name, admin, editor } as User;
+      this.user = JSON.parse(atob(token.split(".")[1]));
+      return this.user;
     }
   }
 
@@ -49,6 +51,15 @@ export class AuthenticationService {
     return this.loc8rDataService
       .register(user)
       .then((authResponse: AuthResponse) => this.saveToken(authResponse.token));
+  }
+
+  public refreshUser(user: User): Promise<any> {
+    return this.loc8rDataService
+      .refreshUser(user)
+      .then((authResponse: AuthResponse) => this.saveToken(authResponse.token))
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   public logout(): void {

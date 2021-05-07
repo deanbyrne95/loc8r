@@ -95,6 +95,10 @@ export class Loc8rDataService {
     return this.makeAuthApiCall("register", user);
   }
 
+  public refreshUser(user: User): Promise<AuthResponse> {
+    return this.makeAuthApiCall(`profiles/${user._id}/edit`, user);
+  }
+
   public makeAuthApiCall(urlPath: string, user: User): Promise<AuthResponse> {
     const url = `${this.baseApiUrl}/${urlPath}`;
     return this.http
@@ -111,6 +115,26 @@ export class Loc8rDataService {
     const url = `${this.baseApiUrl}/profiles/${userId}`;
     return this.http
       .get(url)
+      .toPromise()
+      .then((response) => response as User)
+      .catch(this.handleError);
+  }
+
+  public updateUserById(formData: User): Promise<User> {
+    const url = `${this.baseApiUrl}/profiles/${formData._id}`;
+    const httpOptions = this.getHttpHeaders();
+    return this.http
+      .put(url, formData, httpOptions)
+      .toPromise()
+      .then((response) => response as User)
+      .catch(this.handleError);
+  }
+
+  public deleteUserById(user: User): Promise<User> {
+    const url = `${this.baseApiUrl}/profiles/${user._id}`;
+    const httpOptions = this.getHttpHeaders();
+    return this.http
+      .delete(url, httpOptions)
       .toPromise()
       .then((response) => response as User)
       .catch(this.handleError);

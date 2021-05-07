@@ -31,8 +31,8 @@ export class UserReviewsComponent implements OnInit {
   ) {}
 
   public getUsername(): string {
-    const { name } = this.authenticationService.getCurrentUser();
-    return name ? name : "Guest";
+    const user = this.authenticationService.getCurrentUser();
+    return user.name ? user.name : "Guest";
   }
 
   public isLoggedIn(): boolean {
@@ -46,7 +46,7 @@ export class UserReviewsComponent implements OnInit {
     }
   }
 
-  public isFormValid(review: Review): boolean {
+  private isFormValid(review: Review): boolean {
     if (
       review.author &&
       review.rating &&
