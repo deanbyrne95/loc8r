@@ -5,9 +5,9 @@ const othersController = require('../controllers/others');
 
 /* LOCATIONS */
 router.get('/', locationsController.homeList);
-router.get('/location/:locationId', locationsController.locationInfo);
+router.get('/locations/:locationId', locationsController.locationInfo);
 router
-    .route('/location/:locationId/review/new')
+    .route('/locations/:locationId/review/new')
     .get(locationsController.addReview)
     .post(locationsController.doAddReview);
 
