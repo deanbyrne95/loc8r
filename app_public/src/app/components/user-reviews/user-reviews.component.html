@@ -15,7 +15,7 @@
         </small>
       </p>
       <div class="position-absolute" [ngSwitch]="isLoggedIn()">
-        <div class="btn-group" *ngSwitchCase="true">
+        <div class="btn-group btn-group-sm" *ngSwitchCase="true">
           <button class="btn btn-primary" (click)="editReview(true)" *ngIf="owner">
             <i class="fa fa-edit"></i>
           </button>
@@ -29,8 +29,8 @@
       <form (ngSubmit)="updateReview()">
         <div *ngIf="formError" class="alert alert-danger" role="alert">{{formError}}</div>
         <div class="float-right" *ngIf="isFormVisible">
-          <button type="submit" class="btn btn-primary ml-2 float-right"><i class="fa fa-pencil-alt"></i></button>
-          <button class="btn btn-default float-right" (click)="editReview(false)"><i class="fa fa-times"></i></button>
+          <button type="submit" class="btn btn-sm btn-primary ml-2 float-right"><i class="fa fa-pencil-alt"></i></button>
+          <button class="btn btn-sm btn-default float-right" (click)="editReview(false)"><i class="fa fa-times"></i></button>
         </div>
         <h4 class="card-title">Edit Your Review</h4>
         <div class="form-group row">
