@@ -19,7 +19,8 @@ export class LocationDetailsComponent implements OnInit {
   public isFormVisible = false;
   public newReview: Review = {
     _id: "",
-    author: "",
+    name: "",
+    email: "",
     rating: 5,
     reviewText: "",
     createdOn: new Date(),
@@ -40,7 +41,7 @@ export class LocationDetailsComponent implements OnInit {
 
   private isFormValid(review: Review): boolean {
     if (
-      review.author &&
+      review.name &&
       review.rating &&
       review.reviewText
     ) {
@@ -62,7 +63,9 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   public submitReview(): void {
-    this.newReview.author = this.getUsername();
+    this.newReview.name = this.getUsername();
+    this.newReview.email = this.getEmail();
+    console.log(this.newReview);
     if (this.isFormValid(this.newReview)) {
       this.loc8rDataService
         .addReviewByLocationId(this.location._id, this.newReview)
@@ -83,5 +86,10 @@ export class LocationDetailsComponent implements OnInit {
   public getUsername(): string {
     const user = this.authenticationService.getCurrentUser();
     return user.name ? user.name : "Guest";
+  }
+
+  public getEmail(): string {
+    const user = this.authenticationService.getCurrentUser();
+    return user.email ? user.email : "Guest@email.com";
   }
 }

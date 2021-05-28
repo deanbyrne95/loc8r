@@ -1,6 +1,7 @@
 export class Review {
   _id: string;
-  author: string;
+  name: string;
+  email: string;
   rating: number;
   reviewText: string;
   createdOn: Date;

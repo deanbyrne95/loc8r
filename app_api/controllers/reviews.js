@@ -11,7 +11,7 @@ const getAuthor = (req, res, callback) => {
                 console.error(err);
                 return res.status(404).json(err);
             }
-            callback(req, res, user.name);
+            callback(req, res, user);
         });
     } else {
         return res.status(404).json({ 'message': 'User not found' });
@@ -52,13 +52,17 @@ const addReview = (req, res, location, author) => {
         res.status(404).json({ 'message': 'Location not found' });
     } else {
         const { rating, reviewText } = req.body;
+        const { name, email } = author;
         location.reviews.push({
-            author,
+            name,
+            email,
             rating,
             reviewText,
         });
+        console.log(location);
         location.save((err, location) => {
             if (err) {
+                console.log(err)
                 res.status(400).json(err);
             } else {
                 updateAverageRating(location._id);
@@ -70,7 +74,7 @@ const addReview = (req, res, location, author) => {
 };
 
 const createReview = (req, res) => {
-    getAuthor(req, res, (req, res, userName) => {
+    getAuthor(req, res, (req, res, user) => {
         const locationId = req.params.locationId;
         if (locationId) {
             Rev.findById(locationId)
@@ -79,7 +83,7 @@ const createReview = (req, res) => {
                     if (err) {
                         res.status(400).json(err);
                     } else {
-                        addReview(req, res, location, userName);
+                        addReview(req, res, location, user);
                     }
                 });
         } else {
@@ -144,7 +148,7 @@ const updateReview = (req, res) => {
                         'message': 'Review not found',
                     });
                 } else {
-                    review.author = req.body.author;
+                    review.name = req.body.name;
                     review.rating = req.body.rating;
                     review.reviewText = req.body.reviewText;
                     review.createdOn = Date.now();

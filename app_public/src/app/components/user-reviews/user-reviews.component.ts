@@ -19,7 +19,8 @@ export class UserReviewsComponent implements OnInit {
   public formError = "";
   public reviewForm: Review = {
     _id: "",
-    author: "",
+    name: "",
+    email: "",
     rating: 0,
     reviewText: "",
     createdOn: new Date(),
@@ -35,20 +36,25 @@ export class UserReviewsComponent implements OnInit {
     return user.name ? user.name : "Guest";
   }
 
+  public getEmail(): string {
+    const user = this.authenticationService.getCurrentUser();
+    return user.email ? user.email : "Guest@email.com";
+  }
+
   public isLoggedIn(): boolean {
     return this.authenticationService.isLoggedIn();
   }
 
-  private checkOwnership(name: string): void {
+  private checkOwnership(email: string): void {
     if (this.isLoggedIn()) {
-      const author: string = this.getUsername();
-      this.owner = name === author;
+      const authorEmail: string = this.getEmail();
+      this.owner = email === authorEmail;
     }
   }
 
   private isFormValid(review: Review): boolean {
     if (
-      review.author &&
+      review.name &&
       review.rating &&
       review.reviewText
     ) {
@@ -64,7 +70,8 @@ export class UserReviewsComponent implements OnInit {
     if (this.isFormVisible) {
       this.reviewForm = {
         _id: this.review._id,
-        author: this.review.author,
+        name: this.review.name,
+        email: this.review.email,
         rating: this.review.rating,
         reviewText: this.review.reviewText,
         createdOn: this.review.createdOn,
@@ -75,7 +82,7 @@ export class UserReviewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkOwnership(this.review.author);
+    this.checkOwnership(this.review.email);
   }
 
   public deleteReview(): void {

@@ -14,7 +14,11 @@ const openingTimeSchema = new mongoose.Schema({
 });
 
 const reviewSchema = new mongoose.Schema({
-    author: {
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
     },
