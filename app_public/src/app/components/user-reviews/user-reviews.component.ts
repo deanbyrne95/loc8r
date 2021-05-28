@@ -36,6 +36,11 @@ export class UserReviewsComponent implements OnInit {
     return user.name ? user.name : "Guest";
   }
 
+  public isAdminUser(): boolean {
+    const user = this.authenticationService.getCurrentUser();
+    return user.admin;
+  }
+
   public getEmail(): string {
     const user = this.authenticationService.getCurrentUser();
     return user.email ? user.email : "Guest@email.com";
@@ -48,7 +53,7 @@ export class UserReviewsComponent implements OnInit {
   private checkOwnership(email: string): void {
     if (this.isLoggedIn()) {
       const authorEmail: string = this.getEmail();
-      this.owner = email === authorEmail;
+      this.owner = (email === authorEmail || this.isAdminUser());
     }
   }
 
