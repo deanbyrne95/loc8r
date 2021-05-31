@@ -51,6 +51,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "prod-build",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
