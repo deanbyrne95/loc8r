@@ -140,6 +140,15 @@ export class Loc8rDataService {
       .catch(this.handleError);
   }
 
+  public getUserList(): Promise<User[]> {
+    const url = `${this.baseApiUrl}/profiles`;
+    return this.http
+    .get(url)
+    .toPromise()
+    .then( (response) => response as User[])
+    .catch(this.handleError);
+  }
+
   /**
    * ERROR HANDLING
    */

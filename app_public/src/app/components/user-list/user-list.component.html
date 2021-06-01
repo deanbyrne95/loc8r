@@ -1,0 +1,21 @@
+<app-page-header [content]="pageContent.header"></app-page-header>
+<div class="row">
+  <div class="col-12 col-md-8">
+    <div class="error">{{message}}</div>
+    <div class="users" *ngFor="let user of users">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a routerLink="/profiles/{{user._id}}" class="mr-2">{{user.name}}</a>
+            <span class="badge badge-pill badge-default float-right">{{user.email}}</span>
+          </h4>
+          <div class="roles">
+            <span *ngIf="user.admin" class="badge badge-warning">Admin</span>
+            <span *ngIf="user.editor" class="badge badge-warning">Editor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-sidebar class="col-12 col-md-4" [content]="pageContent.sidebar"></app-sidebar>
+</div>

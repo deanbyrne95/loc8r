@@ -86,7 +86,7 @@ h1 small {
   margin-bottom: 0.5rem;
 }
 
-.facilities span.badge {
+.facilities span.badge, .roles span.badge {
   margin-right: 2px;
 }
 

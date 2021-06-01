@@ -6,6 +6,7 @@ import { DetailsPageComponent } from "./components/details-page/details-page.com
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { UserListComponent } from "./components/user-list/user-list.component";
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "locations/:locationId", component: DetailsPageComponent },
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
+  { path: "profiles", component: UserListComponent },
   { path: "profiles/:userId", component: UserProfileComponent },
 ];
 

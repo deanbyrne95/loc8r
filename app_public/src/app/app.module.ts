@@ -23,6 +23,7 @@ import { FacilitiesComponent } from "./components/facilities/facilities.componen
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { UserDetailsComponent } from "./components/user-details/user-details.component";
 import { ModalComponent } from './components/modal/modal.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ModalComponent } from './components/modal/modal.component';
     UserProfileComponent,
     UserDetailsComponent,
     ModalComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
